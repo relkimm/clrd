@@ -279,7 +279,7 @@ impl ReferenceGraph {
         }
 
         let dir = from_file.parent()?;
-        let mut resolved = dir.join(source);
+        let resolved = dir.join(source);
 
         // Try different extensions
         let extensions = ["", ".ts", ".tsx", ".js", ".jsx", "/index.ts", "/index.tsx", "/index.js"];
@@ -323,7 +323,7 @@ impl ReferenceGraph {
 
     /// Calculate confidence score for an unused export
     fn calculate_export_confidence(&self, file_path: &Path, export_name: &str) -> f64 {
-        let mut confidence = 0.9;
+        let mut confidence: f64 = 0.9;
 
         // Lower confidence for potential dynamic imports
         if self.might_be_dynamic_import(export_name) {

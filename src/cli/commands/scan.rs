@@ -70,7 +70,7 @@ fn print_pretty(result: &ScanOutput, verbose: bool) {
     );
     println!(
         "  Scan duration:     {}ms",
-        result.scan_duration.as_millis().to_string().cyan()
+        result.scan_duration_ms.to_string().cyan()
     );
     println!(
         "  Total issues:      {}",

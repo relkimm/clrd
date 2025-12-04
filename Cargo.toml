@@ -2,7 +2,7 @@
 name = "clr"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.75"
+rust-version = "1.77"
 authors = ["clr contributors"]
 description = "AI-native code maintenance tool - Transparent, Delicate, and Fast"
 license = "MIT"
@@ -16,11 +16,17 @@ crate-type = ["cdylib", "lib"]
 [[bin]]
 name = "clr"
 path = "src/main.rs"
+required-features = ["cli"]
+
+[features]
+default = ["cli"]
+cli = []
+napi = ["dep:napi", "dep:napi-derive"]
 
 [dependencies]
-# NAPI-RS for Node.js bindings
-napi = { version = "2", features = ["async", "serde-json"] }
-napi-derive = "2"
+# NAPI-RS for Node.js bindings (optional)
+napi = { version = "2", features = ["async", "serde-json"], optional = true }
+napi-derive = { version = "2", optional = true }
 
 # Parser - Oxc for maximum performance
 oxc_parser = "0.56"

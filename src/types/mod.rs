@@ -6,7 +6,6 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
-use std::time::Duration;
 
 /// The kind of dead code detected
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
@@ -117,9 +116,8 @@ pub struct ScanOutput {
     pub total_files_scanned: u32,
     /// Total lines of code analyzed
     pub total_lines: u64,
-    /// Scan duration
-    #[serde(with = "duration_serde")]
-    pub scan_duration: Duration,
+    /// Scan duration in milliseconds
+    pub scan_duration_ms: u64,
     /// Summary statistics
     pub summary: ScanSummary,
 }
@@ -276,27 +274,6 @@ pub enum SymbolKind {
     Const,
     Let,
     Namespace,
-}
-
-/// Custom serialization for Duration
-mod duration_serde {
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
-    use std::time::Duration;
-
-    pub fn serialize<S>(duration: &Duration, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        duration.as_millis().serialize(serializer)
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Duration, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let millis = u64::deserialize(deserializer)?;
-        Ok(Duration::from_millis(millis))
-    }
 }
 
 /// LLM judgment request format

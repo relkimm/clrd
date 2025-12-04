@@ -14,10 +14,9 @@ pub use reference_graph::ReferenceGraph;
 use crate::types::*;
 use anyhow::Result;
 use rayon::prelude::*;
-use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 /// The main scanner that orchestrates dead code detection
 pub struct Scanner {
@@ -127,7 +126,7 @@ impl Scanner {
             summary.add(item);
         }
 
-        let scan_duration = start.elapsed();
+        let scan_duration_ms = start.elapsed().as_millis() as u64;
         let total_lines = Arc::try_unwrap(total_lines)
             .map_err(|_| anyhow::anyhow!("Failed to unwrap lines counter"))?
             .into_inner()?;
@@ -139,7 +138,7 @@ impl Scanner {
             dead_code,
             total_files_scanned: total_files,
             total_lines,
-            scan_duration,
+            scan_duration_ms,
             summary,
         })
     }

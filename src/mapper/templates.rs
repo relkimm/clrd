@@ -67,7 +67,7 @@ pub const CURSORRULES_TEMPLATE: &str = r#"# Cursor Rules
 "#;
 
 /// JSON Schema for LLM communication
-pub const DEAD_CODE_JSON_SCHEMA: &str = r#"{
+pub const DEAD_CODE_JSON_SCHEMA: &str = r##"{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ClrScanOutput",
   "description": "Output from clr dead code scanner",
@@ -144,4 +144,4 @@ pub const DEAD_CODE_JSON_SCHEMA: &str = r#"{
       }
     }
   }
-}"#;
+}"##;

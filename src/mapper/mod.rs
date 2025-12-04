@@ -5,7 +5,7 @@
 //! - agent.md: Universal agent guide
 //! - .cursorrules: For Cursor editor
 
-mod templates;
+pub mod templates;
 
 use crate::types::*;
 use anyhow::{Context, Result};
