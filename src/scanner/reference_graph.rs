@@ -123,7 +123,10 @@ impl ReferenceGraph {
                         code_snippet,
                         kind: DeadCodeKind::UnusedExport,
                         name: export.name.clone(),
-                        reason: format!("Export '{}' has 0 references in the codebase", export.name),
+                        reason: format!(
+                            "Export '{}' has 0 references in the codebase",
+                            export.name
+                        ),
                         confidence,
                         context: Some(DeadCodeContext {
                             possibly_dynamic: self.might_be_dynamic_import(&export.name),
@@ -282,7 +285,16 @@ impl ReferenceGraph {
         let resolved = dir.join(source);
 
         // Try different extensions
-        let extensions = ["", ".ts", ".tsx", ".js", ".jsx", "/index.ts", "/index.tsx", "/index.js"];
+        let extensions = [
+            "",
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            "/index.ts",
+            "/index.tsx",
+            "/index.js",
+        ];
 
         for ext in extensions {
             let candidate = if ext.is_empty() {
@@ -336,10 +348,7 @@ impl ReferenceGraph {
         }
 
         // Lower confidence for files that look like entry points
-        let filename = file_path
-            .file_stem()
-            .and_then(|s| s.to_str())
-            .unwrap_or("");
+        let filename = file_path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
         if filename == "index" || filename == "main" || filename == "app" {
             confidence -= 0.2;
         }
@@ -350,7 +359,14 @@ impl ReferenceGraph {
     /// Check if a name might be dynamically imported
     fn might_be_dynamic_import(&self, name: &str) -> bool {
         // Common patterns for dynamic imports
-        let patterns = ["handler", "middleware", "plugin", "route", "controller", "model"];
+        let patterns = [
+            "handler",
+            "middleware",
+            "plugin",
+            "route",
+            "controller",
+            "model",
+        ];
         let lower = name.to_lowercase();
         patterns.iter().any(|p| lower.contains(p))
     }
@@ -358,9 +374,7 @@ impl ReferenceGraph {
     /// Check if a file is a test file
     fn is_test_file(&self, path: &Path) -> bool {
         let path_str = path.to_string_lossy().to_lowercase();
-        path_str.contains(".test.")
-            || path_str.contains(".spec.")
-            || path_str.contains("__tests__")
+        path_str.contains(".test.") || path_str.contains(".spec.") || path_str.contains("__tests__")
     }
 
     /// Check if a file is part of the public API

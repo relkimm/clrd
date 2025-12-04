@@ -36,7 +36,9 @@ impl Mapper {
         if self.create_claude_md()? {
             report.created.push("claude.md".to_string());
         } else {
-            report.skipped.push("claude.md (already exists)".to_string());
+            report
+                .skipped
+                .push("claude.md (already exists)".to_string());
         }
 
         // Create agent.md
@@ -50,7 +52,9 @@ impl Mapper {
         if self.create_cursorrules()? {
             report.created.push(".cursorrules".to_string());
         } else {
-            report.skipped.push(".cursorrules (already exists)".to_string());
+            report
+                .skipped
+                .push(".cursorrules (already exists)".to_string());
         }
 
         Ok(report)

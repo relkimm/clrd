@@ -266,7 +266,10 @@ fn render_details(f: &mut Frame, area: Rect, app: &App) {
                 Span::raw(format!("{}", item.span.start)),
             ]),
             Line::from(vec![
-                Span::styled("Confidence: ", Style::default().add_modifier(Modifier::BOLD)),
+                Span::styled(
+                    "Confidence: ",
+                    Style::default().add_modifier(Modifier::BOLD),
+                ),
                 Span::styled(
                     format!("{:.0}%", item.confidence * 100.0),
                     Style::default().fg(if item.confidence >= 0.8 {

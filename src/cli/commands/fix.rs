@@ -106,16 +106,16 @@ pub async fn run(root: PathBuf, args: FixArgs) -> Result<i32> {
         match apply_fixes(&file_path, &file_items, args.soft) {
             Ok(count) => {
                 fixed += count;
-                println!("  {} Fixed {} items in {}", "✓".green(), count, file_path.display());
+                println!(
+                    "  {} Fixed {} items in {}",
+                    "✓".green(),
+                    count,
+                    file_path.display()
+                );
             }
             Err(e) => {
                 errors += 1;
-                println!(
-                    "  {} Error in {}: {}",
-                    "✗".red(),
-                    file_path.display(),
-                    e
-                );
+                println!("  {} Error in {}: {}", "✗".red(), file_path.display(), e);
             }
         }
     }

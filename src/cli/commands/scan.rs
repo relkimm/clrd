@@ -174,10 +174,7 @@ fn print_pretty(result: &ScanOutput, verbose: bool) {
         "Run {} to output JSON for LLM analysis",
         "clrd scan --format json".cyan()
     );
-    println!(
-        "Run {} to update AI context files",
-        "clrd map".cyan()
-    );
+    println!("Run {} to update AI context files", "clrd map".cyan());
 }
 
 fn print_json(result: &ScanOutput, output: Option<PathBuf>) -> Result<()> {

@@ -46,8 +46,14 @@ pub async fn run(root: PathBuf, args: MapArgs) -> Result<i32> {
 
     println!();
     println!("{}", "Context files now contain:".bold());
-    println!("  • Dead code report with {} issues", scan_output.summary.total_issues);
-    println!("  • {} high confidence items", scan_output.summary.high_confidence_issues);
+    println!(
+        "  • Dead code report with {} issues",
+        scan_output.summary.total_issues
+    );
+    println!(
+        "  • {} high confidence items",
+        scan_output.summary.high_confidence_issues
+    );
     println!("  • Code snippets for AI review");
 
     println!();

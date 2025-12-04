@@ -18,8 +18,8 @@ pub struct AstAnalyzer;
 impl AstAnalyzer {
     /// Analyze a file and return its reference node
     pub fn analyze_file(path: &Path) -> Result<ReferenceNode> {
-        let source = fs::read_to_string(path)
-            .with_context(|| format!("Failed to read file: {:?}", path))?;
+        let source =
+            fs::read_to_string(path).with_context(|| format!("Failed to read file: {:?}", path))?;
 
         Self::analyze_source(path, &source)
     }
@@ -294,10 +294,7 @@ impl AstAnalyzer {
     }
 
     fn get_source_type(path: &Path) -> SourceType {
-        let ext = path
-            .extension()
-            .and_then(|e| e.to_str())
-            .unwrap_or("");
+        let ext = path.extension().and_then(|e| e.to_str()).unwrap_or("");
 
         match ext {
             "ts" | "mts" => SourceType::ts(),

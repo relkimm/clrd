@@ -32,7 +32,10 @@ pub async fn run(root: PathBuf, _args: InitArgs) -> Result<i32> {
     println!("{}", "Next steps:".bold());
     println!("  1. Edit the context files to describe your project");
     println!("  2. Run {} to detect dead code", "clrd scan".cyan());
-    println!("  3. Run {} to update context files with results", "clrd map".cyan());
+    println!(
+        "  3. Run {} to update context files with results",
+        "clrd map".cyan()
+    );
 
     Ok(0)
 }

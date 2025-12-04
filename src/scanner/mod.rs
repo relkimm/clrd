@@ -99,8 +99,9 @@ impl Scanner {
         let graph = Arc::new(Mutex::new(ReferenceGraph::new()));
         let total_lines = Arc::new(Mutex::new(0u64));
 
-        files.par_iter().for_each(|file_path| {
-            match AstAnalyzer::analyze_file(file_path) {
+        files
+            .par_iter()
+            .for_each(|file_path| match AstAnalyzer::analyze_file(file_path) {
                 Ok(node) => {
                     let lines = node.exports.len() + node.imports.len();
                     *total_lines.lock().unwrap() += lines as u64;
@@ -109,8 +110,7 @@ impl Scanner {
                 Err(e) => {
                     tracing::warn!("Failed to analyze {:?}: {}", file_path, e);
                 }
-            }
-        });
+            });
 
         // Phase 3: Detect dead code
         tracing::info!("Phase 3: Detecting dead code");
