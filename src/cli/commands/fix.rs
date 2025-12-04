@@ -161,14 +161,14 @@ fn apply_fixes(file_path: &PathBuf, items: &[&DeadCodeItem], soft: bool) -> Resu
 
         if soft {
             // Comment out the code
-            for i in start..end {
-                new_lines[i] = format!("// [clrd] {}", new_lines[i]);
+            for line in new_lines.iter_mut().take(end).skip(start) {
+                *line = format!("// [clrd] {}", line);
             }
         } else {
             // Remove the lines
             // Mark for removal
-            for i in start..end {
-                new_lines[i] = "\x00REMOVE\x00".to_string();
+            for line in new_lines.iter_mut().take(end).skip(start) {
+                *line = "\x00REMOVE\x00".to_string();
             }
         }
     }

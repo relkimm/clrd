@@ -123,8 +123,6 @@ impl FileWalker {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::fs;
-    use tempfile::tempdir;
 
     #[test]
     fn test_file_walker_extensions() {
