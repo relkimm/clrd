@@ -1,14 +1,14 @@
 {
-  "name": "@relkimm/clr",
+  "name": "@relkimm/clrs",
   "version": "0.1.0",
   "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
   "main": "index.js",
   "types": "index.d.ts",
   "bin": {
-    "clr": "./bin/clr.js"
+    "clrs": "./bin/clr.js"
   },
   "napi": {
-    "name": "clr",
+    "name": "clrs",
     "triples": {
       "defaults": true,
       "additional": [
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/relkimm/clr"
+    "url": "https://github.com/relkimm/clrs"
   },
   "keywords": [
     "dead-code",
@@ -56,17 +56,5 @@
     "bin",
     "index.js",
     "index.d.ts"
-  ],
-  "optionalDependencies": {
-    "@relkimm/clr-win32-x64-msvc": "0.1.0",
-    "@relkimm/clr-darwin-x64": "0.1.0",
-    "@relkimm/clr-linux-x64-gnu": "0.1.0",
-    "@relkimm/clr-linux-x64-musl": "0.1.0",
-    "@relkimm/clr-linux-arm64-gnu": "0.1.0",
-    "@relkimm/clr-linux-arm64-musl": "0.1.0",
-    "@relkimm/clr-darwin-arm64": "0.1.0",
-    "@relkimm/clr-win32-arm64-msvc": "0.1.0",
-    "@relkimm/clr-linux-arm-gnueabihf": "0.1.0",
-    "@relkimm/clr-freebsd-x64": "0.1.0"
-  }
+  ]
 }
