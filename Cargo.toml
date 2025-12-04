@@ -1,9 +1,9 @@
 [package]
 name = "clrd"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.77"
-authors = ["clr contributors"]
+authors = ["clrd contributors"]
 description = "AI-native code maintenance tool - Transparent, Delicate, and Fast"
 license = "MIT"
 repository = "https://github.com/relkimm/clrd"
