@@ -70,13 +70,13 @@ pub const CURSORRULES_TEMPLATE: &str = r#"# Cursor Rules
 pub const DEAD_CODE_JSON_SCHEMA: &str = r##"{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ClrScanOutput",
-  "description": "Output from clr dead code scanner",
+  "description": "Output from clrd dead code scanner",
   "type": "object",
   "required": ["version", "root", "timestamp", "dead_code", "summary"],
   "properties": {
     "version": {
       "type": "string",
-      "description": "clr version that generated this output"
+      "description": "clrd version that generated this output"
     },
     "root": {
       "type": "string",

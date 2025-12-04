@@ -1,15 +1,15 @@
 <div align="center">
 
-# clr
+# clrd
 
 **AI-Native Dead Code Detection**
 
 *Transparent, Delicate, and Fast*
 
-[![Crates.io](https://img.shields.io/crates/v/clr.svg)](https://crates.io/crates/clr)
-[![npm](https://img.shields.io/npm/v/@aspect/clr.svg)](https://www.npmjs.com/package/@aspect/clr)
+[![Crates.io](https://img.shields.io/crates/v/clrd.svg)](https://crates.io/crates/clrd)
+[![npm](https://img.shields.io/npm/v/clrd.svg)](https://www.npmjs.com/package/clrd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
+[![Rust](https://img.shields.io/badge/rust-1.77%2B-orange.svg)](https://www.rust-lang.org)
 
 [Installation](#installation) · [Quick Start](#quick-start) · [Documentation](#documentation) · [Contributing](#contributing)
 
@@ -17,11 +17,11 @@
 
 ---
 
-## Why clr?
+## Why clrd?
 
 Traditional dead code tools blindly flag unused code. But modern codebases are complex—dynamic imports, barrel files, and framework magic create false positives everywhere.
 
-**clr** is different. Built for the **Agentic era**, it combines:
+**clrd** is different. Built for the **Agentic era**, it combines:
 
 - **Rust Speed** — Oxc parser + Rayon parallelism for instant analysis
 - **AI Intelligence** — Confidence scoring lets LLMs make the final call
@@ -29,7 +29,7 @@ Traditional dead code tools blindly flag unused code. But modern codebases are c
 
 ```bash
 # Find dead code in seconds, not minutes
-$ clr scan
+$ clrd scan
 
   Found 23 issues in 1,847 files (142ms)
 
@@ -45,27 +45,17 @@ $ clr scan
 
 ## Installation
 
-### Via npm (Recommended)
+### Via Cargo (Recommended)
 
 ```bash
-# Global installation
-npm install -g @aspect/clr
-
-# Or run directly with npx
-npx @aspect/clr scan
-```
-
-### Via Cargo
-
-```bash
-cargo install clr
+cargo install clrd
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/aspect-build/clr.git
-cd clr
+git clone https://github.com/relkimm/clrd.git
+cd clrd
 cargo build --release
 ```
 
@@ -78,7 +68,7 @@ cargo build --release
 Generate AI context files for Claude, Cursor, or other AI tools:
 
 ```bash
-clr init
+clrd init
 ```
 
 This creates:
@@ -90,16 +80,16 @@ This creates:
 
 ```bash
 # Pretty output (default)
-clr scan
+clrd scan
 
 # JSON output for LLM consumption
-clr scan --format json
+clrd scan --format json
 
 # Interactive TUI
-clr scan --format tui
+clrd scan --format tui
 
 # Filter by confidence
-clr scan --confidence 0.8
+clrd scan --confidence 0.8
 ```
 
 ### 3. Update AI Context
@@ -107,20 +97,20 @@ clr scan --confidence 0.8
 Keep your AI agents informed with the latest dead code report:
 
 ```bash
-clr map
+clrd map
 ```
 
 ### 4. Fix Dead Code
 
 ```bash
 # Preview changes (dry run)
-clr fix --dry-run
+clrd fix --dry-run
 
 # Comment out instead of delete
-clr fix --soft
+clrd fix --soft
 
 # Actually remove (requires clean git)
-clr fix --force
+clrd fix --force
 ```
 
 ---
@@ -141,7 +131,7 @@ clr fix --force
 
 ### Confidence Scoring
 
-Not all dead code is equal. clr assigns confidence scores to minimize false positives:
+Not all dead code is equal. clrd assigns confidence scores to minimize false positives:
 
 | Score | Meaning | Recommendation |
 |-------|---------|----------------|
@@ -157,14 +147,14 @@ Factors that lower confidence:
 
 ### AI Integration
 
-clr is designed to work seamlessly with AI agents:
+clrd is designed to work seamlessly with AI agents:
 
 ```bash
 # Output JSON schema for LLM tool use
-clr schema
+clrd schema
 
 # The JSON output is perfect for AI consumption
-clr scan --format json --output dead-code.json
+clrd scan --format json --output dead-code.json
 ```
 
 ---
@@ -172,13 +162,13 @@ clr scan --format json --output dead-code.json
 ## CLI Reference
 
 ```
-clr - AI-native code maintenance tool
+clrd - AI-native code maintenance tool
 
 USAGE:
-    clr <COMMAND>
+    clrd <COMMAND>
 
 COMMANDS:
-    init     Initialize clr with AI context files
+    init     Initialize clrd with AI context files
     scan     Scan for dead code
     map      Update AI context files with scan results
     fix      Remove or comment out dead code
@@ -191,7 +181,7 @@ OPTIONS:
     -V, --version         Print version
 ```
 
-### `clr scan`
+### `clrd scan`
 
 ```
 OPTIONS:
@@ -204,7 +194,7 @@ OPTIONS:
     -o, --output <FILE>        Output file (for json format)
 ```
 
-### `clr fix`
+### `clrd fix`
 
 ```
 OPTIONS:
@@ -221,11 +211,11 @@ OPTIONS:
 
 ### Supported File Types
 
-By default, clr scans: `.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs`
+By default, clrd scans: `.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs`
 
 ```bash
 # Scan only TypeScript
-clr scan --extensions ts,tsx
+clrd scan --extensions ts,tsx
 ```
 
 ### Ignore Patterns
@@ -234,7 +224,7 @@ Default ignores: `node_modules`, `dist`, `build`, `.git`
 
 ```bash
 # Add custom ignores
-clr scan --ignore "**/*.test.ts,**/*.spec.ts,**/fixtures/**"
+clrd scan --ignore "**/*.test.ts,**/*.spec.ts,**/fixtures/**"
 ```
 
 ---
@@ -243,7 +233,7 @@ clr scan --ignore "**/*.test.ts,**/*.spec.ts,**/fixtures/**"
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                    clr Pipeline                              │
+│                    clrd Pipeline                             │
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │
 │  1. COLLECT        2. ANALYZE         3. DETECT             │
@@ -272,7 +262,7 @@ Tested on a large TypeScript monorepo (50,000+ files):
 
 | Tool | Time | Memory |
 |------|------|--------|
-| **clr** | **2.3s** | **180MB** |
+| **clrd** | **2.3s** | **180MB** |
 | ts-prune | 45s | 1.2GB |
 | knip | 38s | 890MB |
 
@@ -282,25 +272,10 @@ Tested on a large TypeScript monorepo (50,000+ files):
 
 ## Programmatic API
 
-### Node.js
-
-```javascript
-import { scan } from '@aspect/clr';
-
-const result = await scan({
-  root: './src',
-  extensions: ['ts', 'tsx'],
-  ignorePatterns: ['**/*.test.ts'],
-  includeTests: false,
-});
-
-console.log(`Found ${result.items.length} dead code items`);
-```
-
 ### Rust
 
 ```rust
-use clr::Scanner;
+use clrd::Scanner;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -318,7 +293,7 @@ async fn main() -> anyhow::Result<()> {
 
 ## Comparison
 
-| Feature | clr | ts-prune | knip | unimported |
+| Feature | clrd | ts-prune | knip | unimported |
 |---------|-----|----------|------|------------|
 | Speed | Instant | Slow | Moderate | Moderate |
 | Confidence scoring | Yes | No | No | No |
@@ -335,8 +310,8 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ```bash
 # Clone the repo
-git clone https://github.com/aspect-build/clr.git
-cd clr
+git clone https://github.com/relkimm/clrd.git
+cd clrd
 
 # Install dependencies
 cargo build
@@ -360,6 +335,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 **Built with Rust and Oxc for the Agentic era**
 
-[Report Bug](https://github.com/aspect-build/clr/issues) · [Request Feature](https://github.com/aspect-build/clr/issues)
+[Report Bug](https://github.com/relkimm/clrd/issues) · [Request Feature](https://github.com/relkimm/clrd/issues)
 
 </div>

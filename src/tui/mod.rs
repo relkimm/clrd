@@ -172,7 +172,7 @@ fn render_header(f: &mut Frame, area: Rect, app: &App) {
     let summary = &app.scan_output.summary;
 
     let text = vec![Line::from(vec![
-        Span::styled("🧹 clr ", Style::default().add_modifier(Modifier::BOLD)),
+        Span::styled("🧹 clrd ", Style::default().add_modifier(Modifier::BOLD)),
         Span::raw("| "),
         Span::styled(
             format!("{} files", app.scan_output.total_files_scanned),

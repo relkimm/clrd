@@ -1,4 +1,4 @@
-//! Init command - Initialize clr in a project
+//! Init command - Initialize clrd in a project
 
 use crate::cli::InitArgs;
 use crate::mapper::Mapper;
@@ -7,7 +7,7 @@ use colored::Colorize;
 use std::path::PathBuf;
 
 pub async fn run(root: PathBuf, _args: InitArgs) -> Result<i32> {
-    println!("{}", "🧹 Initializing clr...".bold());
+    println!("{}", "🧹 Initializing clrd...".bold());
     println!();
 
     let mapper = Mapper::new(&root);
@@ -31,8 +31,8 @@ pub async fn run(root: PathBuf, _args: InitArgs) -> Result<i32> {
     println!();
     println!("{}", "Next steps:".bold());
     println!("  1. Edit the context files to describe your project");
-    println!("  2. Run {} to detect dead code", "clr scan".cyan());
-    println!("  3. Run {} to update context files with results", "clr map".cyan());
+    println!("  2. Run {} to detect dead code", "clrd scan".cyan());
+    println!("  3. Run {} to update context files with results", "clrd map".cyan());
 
     Ok(0)
 }

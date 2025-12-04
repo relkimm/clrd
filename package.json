@@ -58,15 +58,15 @@
     "index.d.ts"
   ],
   "optionalDependencies": {
-    "clrd-win32-x64-msvc": "0.1.1",
-    "clrd-darwin-x64": "0.1.1",
-    "clrd-linux-x64-gnu": "0.1.1",
-    "clrd-linux-x64-musl": "0.1.1",
-    "clrd-linux-arm64-gnu": "0.1.1",
-    "clrd-linux-arm64-musl": "0.1.1",
-    "clrd-darwin-arm64": "0.1.1",
-    "clrd-win32-arm64-msvc": "0.1.1",
-    "clrd-linux-arm-gnueabihf": "0.1.1",
-    "clrd-freebsd-x64": "0.1.1"
+    "clrd-win32-x64-msvc": "0.1.2",
+    "clrd-darwin-x64": "0.1.2",
+    "clrd-linux-x64-gnu": "0.1.2",
+    "clrd-linux-x64-musl": "0.1.2",
+    "clrd-linux-arm64-gnu": "0.1.2",
+    "clrd-linux-arm64-musl": "0.1.2",
+    "clrd-darwin-arm64": "0.1.2",
+    "clrd-win32-arm64-msvc": "0.1.2",
+    "clrd-linux-arm-gnueabihf": "0.1.2",
+    "clrd-freebsd-x64": "0.1.2"
   }
 }

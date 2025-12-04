@@ -1,6 +1,6 @@
 //! CLI Module - Command Line Interface
 //!
-//! Implements the clr commands: init, scan, fix, map
+//! Implements the clrd commands: init, scan, fix, map
 
 mod commands;
 
@@ -10,11 +10,11 @@ use std::path::PathBuf;
 
 pub use commands::*;
 
-/// clr - AI-native code maintenance tool
+/// clrd - AI-native code maintenance tool
 ///
 /// Transparent, Delicate, and Fast dead code detection
 #[derive(Parser, Debug)]
-#[command(name = "clr")]
+#[command(name = "clrd")]
 #[command(author, version, about, long_about = None)]
 #[command(propagate_version = true)]
 pub struct Cli {
@@ -32,7 +32,7 @@ pub struct Cli {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Initialize clr in the current project
+    /// Initialize clrd in the current project
     ///
     /// Creates context files for AI agents:
     /// - claude.md: For Claude Code
@@ -147,9 +147,9 @@ pub struct FixArgs {
 pub async fn run_cli(args: Vec<String>) -> Result<i32> {
     let cli = if args.is_empty() {
         // Show help if no args
-        Cli::parse_from(["clr", "--help"])
+        Cli::parse_from(["clrd", "--help"])
     } else {
-        Cli::parse_from(std::iter::once("clr".to_string()).chain(args))
+        Cli::parse_from(std::iter::once("clrd".to_string()).chain(args))
     };
 
     let root = cli

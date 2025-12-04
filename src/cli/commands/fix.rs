@@ -162,7 +162,7 @@ fn apply_fixes(file_path: &PathBuf, items: &[&DeadCodeItem], soft: bool) -> Resu
         if soft {
             // Comment out the code
             for i in start..end {
-                new_lines[i] = format!("// [clr] {}", new_lines[i]);
+                new_lines[i] = format!("// [clrd] {}", new_lines[i]);
             }
         } else {
             // Remove the lines

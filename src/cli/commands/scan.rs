@@ -58,7 +58,7 @@ pub async fn run(root: PathBuf, args: ScanArgs, verbose: bool) -> Result<i32> {
 fn print_pretty(result: &ScanOutput, verbose: bool) {
     println!();
     println!("{}", "━".repeat(60).dimmed());
-    println!("{}", " 🧹 clr - Dead Code Report".bold());
+    println!("{}", " 🧹 clrd - Dead Code Report".bold());
     println!("{}", "━".repeat(60).dimmed());
     println!();
 
@@ -172,11 +172,11 @@ fn print_pretty(result: &ScanOutput, verbose: bool) {
     println!("{}", "━".repeat(60).dimmed());
     println!(
         "Run {} to output JSON for LLM analysis",
-        "clr scan --format json".cyan()
+        "clrd scan --format json".cyan()
     );
     println!(
         "Run {} to update AI context files",
-        "clr map".cyan()
+        "clrd map".cyan()
     );
 }
 
@@ -195,7 +195,7 @@ fn print_json(result: &ScanOutput, output: Option<PathBuf>) -> Result<()> {
 
 fn print_compact(result: &ScanOutput) {
     println!(
-        "clr: {} files scanned, {} issues ({} high confidence)",
+        "clrd: {} files scanned, {} issues ({} high confidence)",
         result.total_files_scanned,
         result.summary.total_issues,
         result.summary.high_confidence_issues

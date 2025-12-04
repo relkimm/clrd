@@ -1,10 +1,10 @@
-# clr - AI-Native Code Maintenance Tool
+# clrd - AI-Native Code Maintenance Tool
 
 > **"Transparent, Delicate, and Fast"**
 
 ## Project Overview
 
-**clr** (pronounced "Clear") is a high-performance dead code detection tool built with Rust for the modern "Agentic" era. Unlike traditional linters that blindly delete code, clr combines **Rust's speed** with **LLM intelligence** for safe, accurate code cleanup.
+**clrd** (pronounced "Cleared") is a high-performance dead code detection tool built with Rust for the modern "Agentic" era. Unlike traditional linters that blindly delete code, clrd combines **Rust's speed** with **LLM intelligence** for safe, accurate code cleanup.
 
 ### Core Philosophy
 
@@ -24,7 +24,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     clr Architecture                            │
+│                     clrd Architecture                            │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  Phase 1: SCAN          Phase 2: MAP          Phase 3: ACT     │
@@ -71,11 +71,11 @@ src/
 ├── cli/
 │   ├── mod.rs           # CLI argument parsing (clap)
 │   └── commands/
-│       ├── init.rs      # `clr init` - create context files
-│       ├── scan.rs      # `clr scan` - detect dead code
-│       ├── map.rs       # `clr map` - update context files
-│       ├── fix.rs       # `clr fix` - remove dead code
-│       └── schema.rs    # `clr schema` - output JSON schema
+│       ├── init.rs      # `clrd init` - create context files
+│       ├── scan.rs      # `clrd scan` - detect dead code
+│       ├── map.rs       # `clrd map` - update context files
+│       ├── fix.rs       # `clrd fix` - remove dead code
+│       └── schema.rs    # `clrd schema` - output JSON schema
 ├── scanner/
 │   ├── mod.rs           # Scanner orchestrator
 │   ├── file_walker.rs   # Parallel file system traversal
@@ -142,10 +142,10 @@ Core data structures with `schemars` JSON schema support for LLM integration:
 
 ```bash
 # Initialize project with AI context files
-clr init [--force]
+clrd init [--force]
 
 # Scan for dead code
-clr scan [--format pretty|json|compact|tui]
+clrd scan [--format pretty|json|compact|tui]
          [--extensions ts,tsx,js]
          [--ignore "**/*.test.ts"]
          [--confidence 0.5]
@@ -153,16 +153,16 @@ clr scan [--format pretty|json|compact|tui]
          [--output report.json]
 
 # Update AI context files with scan results
-clr map [--confidence 0.5]
+clrd map [--confidence 0.5]
 
 # Fix dead code
-clr fix [--dry-run]      # Preview only (default)
+clrd fix [--dry-run]      # Preview only (default)
         [--soft]         # Comment out instead of delete
         [--force]        # Hard delete (requires clean git)
         [--confidence 0.8]
 
 # Output JSON schema for LLM integration
-clr schema
+clrd schema
 ```
 
 ---
@@ -197,7 +197,7 @@ npm run build:debug
 cargo run -- scan --format pretty
 
 # Via npm (after build)
-node bin/clr.js scan --format pretty
+node bin/clrd.js scan --format pretty
 ```
 
 ---
@@ -243,7 +243,7 @@ Dead code items have a confidence score (0.0 - 1.0):
 ## LLM Integration
 
 ### JSON Schema
-Use `clr schema` to output JSON schema for LLM tool use.
+Use `clrd schema` to output JSON schema for LLM tool use.
 
 ### Judgment Request Format
 ```json
@@ -298,7 +298,7 @@ Built for cross-platform distribution via npm:
 5. Submit a pull request
 
 ### Areas for Improvement
-- [ ] Configuration file support (.clrrc.json)
+- [ ] Configuration file support (.clrdrc.json)
 - [ ] Incremental scanning with caching
 - [ ] Plugin system for custom detectors
 - [ ] IDE/LSP integration

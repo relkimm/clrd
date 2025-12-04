@@ -1,4 +1,4 @@
-//! clr - AI-native code maintenance tool
+//! clrd - AI-native code maintenance tool
 //!
 //! "Transparent, Delicate, and Fast"
 //!
@@ -32,7 +32,7 @@ mod napi_bindings {
             tracing_subscriber::fmt()
                 .with_env_filter(
                     tracing_subscriber::EnvFilter::from_default_env()
-                        .add_directive("clr=info".parse().unwrap()),
+                        .add_directive("clrd=info".parse().unwrap()),
                 )
                 .with_target(false)
                 .init();

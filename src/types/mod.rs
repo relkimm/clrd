@@ -104,7 +104,7 @@ pub struct DeadCodeContext {
 /// Result of a scan operation
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 pub struct ScanOutput {
-    /// Version of clr that generated this output
+    /// Version of clrd that generated this output
     pub version: String,
     /// Root directory that was scanned
     pub root: String,

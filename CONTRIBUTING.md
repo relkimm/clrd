@@ -1,4 +1,4 @@
-# Contributing to clr
+# Contributing to clrd
 
 First off, thanks for taking the time to contribute!
 
@@ -50,8 +50,8 @@ Feature requests are welcome! Please:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/clr.git
-cd clr
+git clone https://github.com/YOUR_USERNAME/clrd.git
+cd clrd
 
 # Build the project
 cargo build
@@ -73,7 +73,7 @@ npm install
 npm run build
 
 # Test npm package
-node bin/clr.js scan
+node bin/clrd.js scan
 ```
 
 ## Project Structure
@@ -142,4 +142,4 @@ cargo test -- --nocapture
 
 Feel free to open an issue for any questions about contributing.
 
-Thank you for helping make clr better!
+Thank you for helping make clrd better!
