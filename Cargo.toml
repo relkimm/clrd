@@ -1,12 +1,12 @@
 [package]
-name = "clrs"
+name = "clrd"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.77"
 authors = ["clr contributors"]
 description = "AI-native code maintenance tool - Transparent, Delicate, and Fast"
 license = "MIT"
-repository = "https://github.com/relkimm/clrs"
+repository = "https://github.com/relkimm/clrd"
 keywords = ["dead-code", "linter", "ai", "code-maintenance", "oxc"]
 categories = ["development-tools", "command-line-utilities"]
 
