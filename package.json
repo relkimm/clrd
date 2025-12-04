@@ -1,0 +1,60 @@
+{
+  "name": "@aspect/clr",
+  "version": "0.1.0",
+  "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "clr": "./bin/clr.js"
+  },
+  "napi": {
+    "name": "clr",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "x86_64-unknown-linux-musl",
+        "aarch64-unknown-linux-gnu",
+        "aarch64-unknown-linux-musl",
+        "aarch64-apple-darwin",
+        "aarch64-pc-windows-msvc",
+        "armv7-unknown-linux-gnueabihf",
+        "x86_64-unknown-freebsd"
+      ]
+    }
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "test": "node --test",
+    "universal": "napi universal",
+    "version": "napi version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clr-dev/clr"
+  },
+  "keywords": [
+    "dead-code",
+    "linter",
+    "ai",
+    "code-maintenance",
+    "rust",
+    "oxc",
+    "cleaner",
+    "agentic"
+  ],
+  "files": [
+    "bin",
+    "index.js",
+    "index.d.ts"
+  ]
+}

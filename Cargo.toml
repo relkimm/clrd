@@ -1,0 +1,80 @@
+[package]
+name = "clr"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["clr contributors"]
+description = "AI-native code maintenance tool - Transparent, Delicate, and Fast"
+license = "MIT"
+repository = "https://github.com/clr-dev/clr"
+keywords = ["dead-code", "linter", "ai", "code-maintenance", "oxc"]
+categories = ["development-tools", "command-line-utilities"]
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[[bin]]
+name = "clr"
+path = "src/main.rs"
+
+[dependencies]
+# NAPI-RS for Node.js bindings
+napi = { version = "2", features = ["async", "serde-json"] }
+napi-derive = "2"
+
+# Parser - Oxc for maximum performance
+oxc_parser = "0.56"
+oxc_ast = "0.56"
+oxc_span = "0.56"
+oxc_allocator = "0.56"
+oxc_resolver = "3"
+
+# Parallelism
+rayon = "1.10"
+ignore = "0.4"
+walkdir = "2.5"
+num_cpus = "1.16"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+schemars = "0.8"
+
+# CLI
+clap = { version = "4.5", features = ["derive", "env", "unicode", "wrap_help"] }
+
+# TUI
+ratatui = "0.29"
+crossterm = "0.28"
+
+# Progress & UI
+indicatif = "0.17"
+console = "0.15"
+colored = "2.1"
+
+# Async runtime
+tokio = { version = "1.42", features = ["full"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "2.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# File utilities
+pathdiff = "0.2"
+globset = "0.4"
+
+[build-dependencies]
+napi-build = "2"
+
+[dev-dependencies]
+tempfile = "3.14"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
