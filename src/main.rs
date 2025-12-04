@@ -1,9 +1,9 @@
-//! clr CLI binary entry point
+//! clrd CLI binary entry point
 //!
 //! This is the standalone Rust binary for direct execution.
 //! For npm distribution, the NAPI bindings in lib.rs are used instead.
 
-use clr::cli;
+use clrd::cli;
 
 #[tokio::main]
 async fn main() {
