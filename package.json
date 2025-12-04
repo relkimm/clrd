@@ -1,11 +1,11 @@
 {
   "name": "clrd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
   "main": "index.js",
   "types": "index.d.ts",
   "bin": {
-    "clrd": "./bin/clr.js"
+    "clrd": "./bin/clrd.js"
   },
   "napi": {
     "name": "clrd",
