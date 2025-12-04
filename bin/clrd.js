@@ -32,7 +32,7 @@ function loadBinding() {
   }
 
   try {
-    return require(`@aspect/clr-${triple}`);
+    return require(`clrd-${triple}`);
   } catch (e) {
     console.error('Failed to load native binding:', e.message);
     process.exit(1);
@@ -50,7 +50,7 @@ async function main() {
     const exitCode = await binding.run(args);
     process.exit(exitCode);
   } catch (error) {
-    console.error('clr error:', error.message);
+    console.error('clrd error:', error.message);
     process.exit(1);
   }
 }

@@ -30,24 +30,24 @@ switch (platform) {
   case 'android':
     switch (arch) {
       case 'arm64':
-        localFileExisted = existsSync(join(__dirname, 'clr.android-arm64.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.android-arm64.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.android-arm64.node');
+            nativeBinding = require('./clrd.android-arm64.node');
           } else {
-            nativeBinding = require('@aspect/clr-android-arm64');
+            nativeBinding = require('clrd-android-arm64');
           }
         } catch (e) {
           loadError = e;
         }
         break;
       case 'arm':
-        localFileExisted = existsSync(join(__dirname, 'clr.android-arm-eabi.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.android-arm-eabi.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.android-arm-eabi.node');
+            nativeBinding = require('./clrd.android-arm-eabi.node');
           } else {
-            nativeBinding = require('@aspect/clr-android-arm-eabi');
+            nativeBinding = require('clrd-android-arm-eabi');
           }
         } catch (e) {
           loadError = e;
@@ -60,36 +60,36 @@ switch (platform) {
   case 'win32':
     switch (arch) {
       case 'x64':
-        localFileExisted = existsSync(join(__dirname, 'clr.win32-x64-msvc.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.win32-x64-msvc.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.win32-x64-msvc.node');
+            nativeBinding = require('./clrd.win32-x64-msvc.node');
           } else {
-            nativeBinding = require('@aspect/clr-win32-x64-msvc');
+            nativeBinding = require('clrd-win32-x64-msvc');
           }
         } catch (e) {
           loadError = e;
         }
         break;
       case 'ia32':
-        localFileExisted = existsSync(join(__dirname, 'clr.win32-ia32-msvc.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.win32-ia32-msvc.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.win32-ia32-msvc.node');
+            nativeBinding = require('./clrd.win32-ia32-msvc.node');
           } else {
-            nativeBinding = require('@aspect/clr-win32-ia32-msvc');
+            nativeBinding = require('clrd-win32-ia32-msvc');
           }
         } catch (e) {
           loadError = e;
         }
         break;
       case 'arm64':
-        localFileExisted = existsSync(join(__dirname, 'clr.win32-arm64-msvc.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.win32-arm64-msvc.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.win32-arm64-msvc.node');
+            nativeBinding = require('./clrd.win32-arm64-msvc.node');
           } else {
-            nativeBinding = require('@aspect/clr-win32-arm64-msvc');
+            nativeBinding = require('clrd-win32-arm64-msvc');
           }
         } catch (e) {
           loadError = e;
@@ -100,12 +100,12 @@ switch (platform) {
     }
     break;
   case 'darwin':
-    localFileExisted = existsSync(join(__dirname, 'clr.darwin-universal.node'));
+    localFileExisted = existsSync(join(__dirname, 'clrd.darwin-universal.node'));
     try {
       if (localFileExisted) {
-        nativeBinding = require('./clr.darwin-universal.node');
+        nativeBinding = require('./clrd.darwin-universal.node');
       } else {
-        nativeBinding = require('@aspect/clr-darwin-universal');
+        nativeBinding = require('clrd-darwin-universal');
       }
       break;
     } catch {
@@ -113,24 +113,24 @@ switch (platform) {
     }
     switch (arch) {
       case 'x64':
-        localFileExisted = existsSync(join(__dirname, 'clr.darwin-x64.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.darwin-x64.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.darwin-x64.node');
+            nativeBinding = require('./clrd.darwin-x64.node');
           } else {
-            nativeBinding = require('@aspect/clr-darwin-x64');
+            nativeBinding = require('clrd-darwin-x64');
           }
         } catch (e) {
           loadError = e;
         }
         break;
       case 'arm64':
-        localFileExisted = existsSync(join(__dirname, 'clr.darwin-arm64.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.darwin-arm64.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.darwin-arm64.node');
+            nativeBinding = require('./clrd.darwin-arm64.node');
           } else {
-            nativeBinding = require('@aspect/clr-darwin-arm64');
+            nativeBinding = require('clrd-darwin-arm64');
           }
         } catch (e) {
           loadError = e;
@@ -144,12 +144,12 @@ switch (platform) {
     if (arch !== 'x64') {
       throw new Error(`Unsupported architecture on FreeBSD: ${arch}`);
     }
-    localFileExisted = existsSync(join(__dirname, 'clr.freebsd-x64.node'));
+    localFileExisted = existsSync(join(__dirname, 'clrd.freebsd-x64.node'));
     try {
       if (localFileExisted) {
-        nativeBinding = require('./clr.freebsd-x64.node');
+        nativeBinding = require('./clrd.freebsd-x64.node');
       } else {
-        nativeBinding = require('@aspect/clr-freebsd-x64');
+        nativeBinding = require('clrd-freebsd-x64');
       }
     } catch (e) {
       loadError = e;
@@ -159,23 +159,23 @@ switch (platform) {
     switch (arch) {
       case 'x64':
         if (isMusl()) {
-          localFileExisted = existsSync(join(__dirname, 'clr.linux-x64-musl.node'));
+          localFileExisted = existsSync(join(__dirname, 'clrd.linux-x64-musl.node'));
           try {
             if (localFileExisted) {
-              nativeBinding = require('./clr.linux-x64-musl.node');
+              nativeBinding = require('./clrd.linux-x64-musl.node');
             } else {
-              nativeBinding = require('@aspect/clr-linux-x64-musl');
+              nativeBinding = require('clrd-linux-x64-musl');
             }
           } catch (e) {
             loadError = e;
           }
         } else {
-          localFileExisted = existsSync(join(__dirname, 'clr.linux-x64-gnu.node'));
+          localFileExisted = existsSync(join(__dirname, 'clrd.linux-x64-gnu.node'));
           try {
             if (localFileExisted) {
-              nativeBinding = require('./clr.linux-x64-gnu.node');
+              nativeBinding = require('./clrd.linux-x64-gnu.node');
             } else {
-              nativeBinding = require('@aspect/clr-linux-x64-gnu');
+              nativeBinding = require('clrd-linux-x64-gnu');
             }
           } catch (e) {
             loadError = e;
@@ -184,23 +184,23 @@ switch (platform) {
         break;
       case 'arm64':
         if (isMusl()) {
-          localFileExisted = existsSync(join(__dirname, 'clr.linux-arm64-musl.node'));
+          localFileExisted = existsSync(join(__dirname, 'clrd.linux-arm64-musl.node'));
           try {
             if (localFileExisted) {
-              nativeBinding = require('./clr.linux-arm64-musl.node');
+              nativeBinding = require('./clrd.linux-arm64-musl.node');
             } else {
-              nativeBinding = require('@aspect/clr-linux-arm64-musl');
+              nativeBinding = require('clrd-linux-arm64-musl');
             }
           } catch (e) {
             loadError = e;
           }
         } else {
-          localFileExisted = existsSync(join(__dirname, 'clr.linux-arm64-gnu.node'));
+          localFileExisted = existsSync(join(__dirname, 'clrd.linux-arm64-gnu.node'));
           try {
             if (localFileExisted) {
-              nativeBinding = require('./clr.linux-arm64-gnu.node');
+              nativeBinding = require('./clrd.linux-arm64-gnu.node');
             } else {
-              nativeBinding = require('@aspect/clr-linux-arm64-gnu');
+              nativeBinding = require('clrd-linux-arm64-gnu');
             }
           } catch (e) {
             loadError = e;
@@ -208,12 +208,12 @@ switch (platform) {
         }
         break;
       case 'arm':
-        localFileExisted = existsSync(join(__dirname, 'clr.linux-arm-gnueabihf.node'));
+        localFileExisted = existsSync(join(__dirname, 'clrd.linux-arm-gnueabihf.node'));
         try {
           if (localFileExisted) {
-            nativeBinding = require('./clr.linux-arm-gnueabihf.node');
+            nativeBinding = require('./clrd.linux-arm-gnueabihf.node');
           } else {
-            nativeBinding = require('@aspect/clr-linux-arm-gnueabihf');
+            nativeBinding = require('clrd-linux-arm-gnueabihf');
           }
         } catch (e) {
           loadError = e;

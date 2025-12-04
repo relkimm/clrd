@@ -1,6 +1,6 @@
 {
   "name": "clrd",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
   "main": "index.js",
   "types": "index.d.ts",
@@ -58,15 +58,15 @@
     "index.d.ts"
   ],
   "optionalDependencies": {
-    "clrd-win32-x64-msvc": "0.1.0",
-    "clrd-darwin-x64": "0.1.0",
-    "clrd-linux-x64-gnu": "0.1.0",
-    "clrd-linux-x64-musl": "0.1.0",
-    "clrd-linux-arm64-gnu": "0.1.0",
-    "clrd-linux-arm64-musl": "0.1.0",
-    "clrd-darwin-arm64": "0.1.0",
-    "clrd-win32-arm64-msvc": "0.1.0",
-    "clrd-linux-arm-gnueabihf": "0.1.0",
-    "clrd-freebsd-x64": "0.1.0"
+    "clrd-win32-x64-msvc": "0.1.1",
+    "clrd-darwin-x64": "0.1.1",
+    "clrd-linux-x64-gnu": "0.1.1",
+    "clrd-linux-x64-musl": "0.1.1",
+    "clrd-linux-arm64-gnu": "0.1.1",
+    "clrd-linux-arm64-musl": "0.1.1",
+    "clrd-darwin-arm64": "0.1.1",
+    "clrd-win32-arm64-msvc": "0.1.1",
+    "clrd-linux-arm-gnueabihf": "0.1.1",
+    "clrd-freebsd-x64": "0.1.1"
   }
 }
