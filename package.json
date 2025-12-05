@@ -1,6 +1,6 @@
 {
   "name": "clrd",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
   "main": "index.js",
   "types": "index.d.ts",
@@ -31,7 +31,7 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
-    "build": "napi build --platform --release",
+    "build": "napi build --platform --release --features napi",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "node --test",
