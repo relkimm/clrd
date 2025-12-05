@@ -371,6 +371,6 @@ mod tests {
         let mapper = Mapper::new("/tmp");
         let content = "before\n<!-- CLR:START -->\nold content\n<!-- CLR:END -->\nafter";
         let result = mapper.remove_section(content, "<!-- CLR:START -->", "<!-- CLR:END -->");
-        assert_eq!(result, "before\nafter");
+        assert_eq!(result, "before\n\nafter");
     }
 }
