@@ -1,6 +1,6 @@
 {
   "name": "clrd",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
   "main": "index.js",
   "types": "index.d.ts",
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
-    "build": "napi build --platform --release --no-default-features --features napi",
+    "build": "napi build --platform --release --features napi --cargo-flags=\"--no-default-features\"",
     "build:debug": "napi build --platform",
     "test": "node --test",
     "universal": "napi universal",
