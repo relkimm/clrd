@@ -3,172 +3,135 @@
 /// Template for claude.md - Claude Code context file
 pub const CLAUDE_MD_TEMPLATE: &str = r#"# Project Context for Claude
 
-## Dead Code Cleanup Tool (clrd)
+## Dead Code Detection (clrd)
 
-This project uses `clrd` for dead code detection. When the user asks you to clean up unused code, follow this workflow:
+This project uses [clrd](https://npmjs.com/package/clrd) for dead code detection.
 
-### Step 1: Scan for Dead Code
+### Usage
+
+When user asks to "clean up unused code" or "remove dead code":
+
 ```bash
 npx clrd scan --format json
 ```
 
-This outputs a JSON with detected dead code:
-```json
-{
-  "dead_code": [
-    {
-      "file_path": "src/utils.ts",
-      "name": "unusedFunction",
-      "kind": "unused_export",
-      "confidence": 0.95,
-      "reason": "No references found in codebase",
-      "span": { "start": 10, "end": 15 },
-      "code_snippet": "export function unusedFunction() { ... }"
-    }
-  ],
-  "summary": {
-    "total_issues": 5,
-    "high_confidence_issues": 3
-  }
-}
+### Decision Rules
+
+```
+if confidence >= 0.9:
+    if kind in [unused_import, unused_export, unreachable_function]:
+        → Auto-remove
+    if kind == zombie_file:
+        → Ask user: "Delete {filename}?"
+
+if confidence < 0.9:
+    → Show list to user, ask which to remove
+
+if public_api == true:
+    → Never remove (exposed in package.json exports)
 ```
 
-### Step 2: Analyze Results
-- **confidence >= 0.9**: Safe to remove (no references found)
-- **confidence 0.7-0.9**: Review carefully (might be dynamically used)
-- **confidence < 0.7**: Keep unless user confirms
+### Removal Checklist
 
-Check for:
-- Dynamic imports: `require(variable)` or `import(variable)`
-- Reflection: `Object.keys()`, `eval()`, string-based access
-- Public API exports that external packages might use
-- Test utilities that are imported in test files
+1. Remove the dead code itself
+2. Remove imports that become orphaned
+3. Delete files that become empty
+4. Group related removals (function + its imports)
 
-### Step 3: Remove Dead Code
-For each confirmed dead code item:
-1. Read the file to understand context
-2. Remove the dead code (function, export, import, or entire file)
-3. Remove any orphaned imports created by the removal
+### Common False Positives
 
-### Step 4: Verify Changes
-```bash
-# Run project's test command
-npm test
+Skip these patterns - they may appear unused but aren't:
+- `__tests__/`, `*.test.ts`, `*.spec.ts` - test utilities
+- `*.d.ts` - type declarations
+- Files with `@public` or `@api` JSDoc tags
+- Entry points in package.json (`main`, `exports`, `bin`)
+- Dynamic imports: `require(variable)`, `import(expr)`
+- Decorator factories: `@Injectable()`, `@Component()`
 
-# Or common alternatives
-npm run test
-yarn test
-pnpm test
+### Output Format
+
+After cleanup, summarize:
 ```
+Removed X items:
+- 3 unused imports
+- 2 unused exports
+- 1 unreachable function
 
-If tests fail, revert the problematic removal and inform the user.
-
-### Important Notes
-- Always preserve public API unless user explicitly confirms
-- For `zombie_file` (unused files), confirm with user before deleting
-- Group related removals (e.g., remove function + its import together)
-- Run tests after each batch of removals, not at the very end
+Skipped Y items (need confirmation):
+- src/legacy.ts (zombie file)
+```
 
 ---
 
 ## Project Structure
-<!-- Add your project structure description here -->
+<!-- Describe your project structure -->
 
 ## Conventions
-<!-- Document coding conventions and patterns -->
+<!-- Document coding conventions -->
 "#;
 
 /// Template for agent.md - Universal AI agent guide
 pub const AGENT_MD_TEMPLATE: &str = r#"# Agent Guide
 
-## Dead Code Cleanup with clrd
+## Dead Code Detection (clrd)
 
-This project uses `clrd` to detect dead code. As an AI agent, you can use this tool to help maintain code quality.
+Scan: `npx clrd scan --format json`
 
 ### Quick Reference
 
-```bash
-# Scan and get JSON output
-npx clrd scan --format json
+| confidence | kind | action |
+|------------|------|--------|
+| >= 0.9 | unused_import | Auto-remove |
+| >= 0.9 | unused_export | Auto-remove |
+| >= 0.9 | unreachable_function | Auto-remove |
+| >= 0.9 | zombie_file | Ask user |
+| < 0.9 | * | Ask user |
+| * | public_api: true | Keep |
 
-# Scan with specific extensions
-npx clrd scan --format json --extensions ts,tsx,js
+### Process
 
-# Scan excluding test files
-npx clrd scan --format json --no-tests
+```
+1. Run scan
+2. Filter by confidence >= 0.9
+3. Remove dead code
+4. Clean orphaned imports
+5. Delete empty files
+6. Report summary to user
 ```
 
-### Dead Code Types
+### Skip These (False Positives)
 
-| Kind | Description | Action |
-|------|-------------|--------|
-| `unused_export` | Exported but never imported | Remove export or entire function |
-| `unused_import` | Imported but never used | Remove import statement |
-| `unreachable_function` | Function never called | Remove function |
-| `zombie_file` | File with no imports | Confirm with user, then delete |
-| `unused_type` | Type/interface never referenced | Remove type definition |
-
-### Confidence Levels
-
-- **0.9-1.0**: Definitely unused, safe to remove
-- **0.7-0.9**: Likely unused, but verify no dynamic usage
-- **0.5-0.7**: Uncertain, ask user before removing
-- **<0.5**: Probably used dynamically, keep it
-
-### Workflow
-
-1. Run `npx clrd scan --format json`
-2. Filter items with confidence >= 0.8
-3. For each item, remove the dead code
-4. Run tests: `npm test`
-5. If tests pass, continue. If fail, revert last removal.
-
-### Edge Cases to Watch
-
-- Re-exported modules (`export * from './module'`)
-- Dynamic requires (`require(variablePath)`)
-- Decorator usage (`@Injectable()`)
-- Public package APIs (check package.json exports)
+- Test files (`*.test.ts`, `__tests__/`)
+- Type declarations (`*.d.ts`)
+- Package entry points (check `package.json`)
+- Dynamic imports (`require(var)`)
+- Decorated classes (`@Component`)
 
 ---
 
 ## Project Overview
-<!-- Describe your project here -->
-
-## Development Workflow
-<!-- How to build, test, and deploy -->
+<!-- Describe your project -->
 "#;
 
 /// Template for .cursorrules - Cursor editor rules
 pub const CURSORRULES_TEMPLATE: &str = r#"# Cursor Rules
 
-## Dead Code Cleanup (clrd)
+## Dead Code (clrd)
 
-When asked to clean up dead code or unused files:
+Scan: npx clrd scan --format json
 
-1. Run: `npx clrd scan --format json`
-2. Review the JSON output - focus on items with confidence >= 0.8
-3. Remove dead code carefully, checking for dynamic usage
-4. Run tests after removals: `npm test`
+Auto-remove if confidence >= 0.9:
+  unused_import, unused_export, unreachable_function
 
-Dead code types:
-- unused_export: Remove the export/function
-- unused_import: Remove the import line
-- zombie_file: Ask user before deleting entire file
-- unreachable_function: Remove the function
+Ask user first:
+  zombie_file, confidence < 0.9
 
-Always run tests after cleanup to verify nothing broke.
+Never remove:
+  public_api: true
 
----
+After removal: clean orphaned imports, delete empty files.
 
-# Code Style
-# - Follow existing patterns in the codebase
-# - Use TypeScript strict mode
-# - Prefer functional patterns where appropriate
-
-# Testing
-# - Write tests for new functionality
-# - Follow existing test patterns
+Skip: test files, *.d.ts, package.json entries, dynamic imports.
 "#;
 
 /// JSON Schema for LLM communication

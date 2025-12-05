@@ -1,6 +1,6 @@
 {
   "name": "clrd",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "AI-native code maintenance tool - Transparent, Delicate, and Fast",
   "main": "index.js",
   "types": "index.d.ts",
