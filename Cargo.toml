@@ -14,7 +14,7 @@ categories = ["development-tools", "command-line-utilities"]
 crate-type = ["cdylib", "lib"]
 
 [[bin]]
-name = "clr"
+name = "clrd"
 path = "src/main.rs"
 required-features = ["cli"]
 
