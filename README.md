@@ -45,7 +45,19 @@ $ clrd scan
 
 ## Installation
 
-### Via Cargo (Recommended)
+### Via npm (Recommended)
+
+```bash
+npx clrd scan
+```
+
+Or install globally:
+
+```bash
+npm install -g clrd
+```
+
+### Via Cargo
 
 ```bash
 cargo install clrd
@@ -186,12 +198,20 @@ OPTIONS:
 ```
 OPTIONS:
     -f, --format <FORMAT>      Output format [default: pretty]
-                               [possible values: pretty, json, compact, tui]
-    -e, --extensions <EXT>     File extensions to scan [default: ts,tsx,js,jsx]
-    -i, --ignore <PATTERN>     Patterns to ignore (glob)
+                               [values: pretty, json, compact, tui]
+    -e, --extensions <EXT>     File extensions (comma-separated)
+    -i, --ignore <PATTERN>     Patterns to ignore (comma-separated globs)
         --include-tests        Include test files in analysis
         --confidence <FLOAT>   Minimum confidence threshold [default: 0.5]
     -o, --output <FILE>        Output file (for json format)
+```
+
+### `clrd map`
+
+```
+OPTIONS:
+        --scan                 Run a fresh scan before mapping
+        --confidence <FLOAT>   Minimum confidence for reporting [default: 0.5]
 ```
 
 ### `clrd fix`

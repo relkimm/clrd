@@ -43,7 +43,7 @@ Feature requests are welcome! Please:
 
 ### Prerequisites
 
-- Rust 1.75 or higher
+- Rust 1.77 or higher
 - Node.js 18 or higher (for npm builds)
 
 ### Getting Started

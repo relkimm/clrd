@@ -23,25 +23,25 @@
 ## Architecture: The Scan-Map-Judge-Act Protocol
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                     clrd Architecture                            │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Phase 1: SCAN          Phase 2: MAP          Phase 3: ACT     │
-│  ┌─────────────┐       ┌─────────────┐       ┌─────────────┐   │
-│  │ FileWalker  │       │   Mapper    │       │    Fix      │   │
-│  │ (parallel)  │──────▶│ (context)   │──────▶│  (remove)   │   │
-│  │ AstAnalyzer │       │ claude.md   │       │ --dry-run   │   │
-│  │ RefGraph    │       │ agent.md    │       │ --soft      │   │
-│  └─────────────┘       └─────────────┘       │ --force     │   │
-│        │                      │              └─────────────┘   │
-│        ▼                      ▼                    │           │
-│  ┌─────────────┐       ┌─────────────┐            │           │
-│  │ ScanOutput  │       │ AI Context  │◀───────────┘           │
-│  │ (JSON)      │──────▶│ Files       │    LLM Judgment        │
-│  └─────────────┘       └─────────────┘                        │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────┐
+│                        clrd Architecture                          │
+├───────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│   Phase 1: SCAN          Phase 2: MAP          Phase 3: ACT      │
+│   ┌─────────────┐       ┌─────────────┐       ┌─────────────┐    │
+│   │ FileWalker  │       │   Mapper    │       │    Fix      │    │
+│   │ (parallel)  │──────▶│ (context)   │──────▶│  (remove)   │    │
+│   │ AstAnalyzer │       │ claude.md   │       │ --dry-run   │    │
+│   │ RefGraph    │       │ agent.md    │       │ --soft      │    │
+│   └─────────────┘       └─────────────┘       │ --force     │    │
+│         │                      │              └─────────────┘    │
+│         ▼                      ▼                    │            │
+│   ┌─────────────┐       ┌─────────────┐            │            │
+│   │ ScanOutput  │       │ AI Context  │◀───────────┘            │
+│   │ (JSON)      │──────▶│ Files       │    LLM Judgment         │
+│   └─────────────┘       └─────────────┘                         │
+│                                                                   │
+└───────────────────────────────────────────────────────────────────┘
 ```
 
 ### Phase 1: Scan (Rust Speed)
@@ -170,7 +170,7 @@ clrd schema
 ## Build & Development
 
 ### Prerequisites
-- Rust 1.75+
+- Rust 1.77+
 - Node.js 18+ (for npm distribution)
 
 ### Build Commands
@@ -282,10 +282,9 @@ Use `clrd schema` to output JSON schema for LLM tool use.
 ## Platform Support
 
 Built for cross-platform distribution via npm:
-- Windows (x64, arm64)
-- macOS (x64, arm64, universal)
-- Linux (x64, arm64, musl variants)
-- FreeBSD (x64)
+- Windows (x64)
+- macOS (x64, arm64)
+- Linux (x64 gnu, arm64 gnu)
 
 ---
 
