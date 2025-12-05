@@ -232,22 +232,22 @@ clrd scan --ignore "**/*.test.ts,**/*.spec.ts,**/fixtures/**"
 ## How It Works
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    clrd Pipeline                             │
-├──────────────────────────────────────────────────────────────┤
-│                                                              │
-│  1. COLLECT        2. ANALYZE         3. DETECT             │
-│  ┌──────────┐     ┌──────────┐       ┌──────────┐          │
-│  │FileWalker│────▶│   Oxc    │──────▶│Reference │          │
-│  │ (rayon)  │     │  Parser  │       │  Graph   │          │
-│  └──────────┘     └──────────┘       └──────────┘          │
-│       │                │                   │                │
-│       ▼                ▼                   ▼                │
-│   1,847 files    AST Analysis       Dead Code Items        │
-│    in 50ms       with exports/      with confidence        │
-│                  imports            scores                  │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                         clrd Pipeline                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   1. COLLECT         2. ANALYZE          3. DETECT              │
+│   ┌──────────┐      ┌──────────┐       ┌────────────┐           │
+│   │FileWalker│─────▶│   Oxc    │──────▶│ Reference  │           │
+│   │ (rayon)  │      │  Parser  │       │   Graph    │           │
+│   └──────────┘      └──────────┘       └────────────┘           │
+│        │                 │                   │                  │
+│        ▼                 ▼                   ▼                  │
+│   1,847 files      AST Analysis       Dead Code Items           │
+│     in 50ms        with exports/      with confidence           │
+│                    imports            scores                    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 1. **FileWalker** — Parallel file traversal using `rayon`, respects `.gitignore`
