@@ -1,6 +1,6 @@
 //! CLI Module - Command Line Interface
 //!
-//! Implements the clrd commands: init, scan, fix, map
+//! Implements the clrd commands: init, scan, fix, schema
 
 mod commands;
 
@@ -34,10 +34,8 @@ pub struct Cli {
 pub enum Commands {
     /// Initialize clrd in the current project
     ///
-    /// Creates context files for AI agents:
-    /// - claude.md: For Claude Code
-    /// - agent.md: Universal agent guide
-    /// - .cursorrules: For Cursor editor
+    /// Creates clrd.md with usage instructions for AI agents.
+    /// If claude.md, agent.md, or .cursorrules exist, adds a reference to clrd.md.
     Init(InitArgs),
 
     /// Scan for dead code
@@ -45,12 +43,6 @@ pub enum Commands {
     /// Analyzes the codebase and identifies unused exports,
     /// unreachable functions, zombie files, and more.
     Scan(ScanArgs),
-
-    /// Update AI context files with scan results
-    ///
-    /// Runs a scan and updates claude.md, agent.md, and .cursorrules
-    /// with the dead code report.
-    Map(MapArgs),
 
     /// Fix dead code issues
     ///
@@ -110,17 +102,6 @@ pub enum OutputFormat {
 }
 
 #[derive(Parser, Debug)]
-pub struct MapArgs {
-    /// Also run a fresh scan before mapping
-    #[arg(long)]
-    pub scan: bool,
-
-    /// Minimum confidence threshold for reporting
-    #[arg(long, default_value = "0.5")]
-    pub confidence: f64,
-}
-
-#[derive(Parser, Debug)]
 pub struct FixArgs {
     /// Dry run - show what would be removed without making changes
     #[arg(long)]
@@ -159,7 +140,6 @@ pub async fn run_cli(args: Vec<String>) -> Result<i32> {
     match cli.command {
         Commands::Init(args) => commands::init::run(root, args).await,
         Commands::Scan(args) => commands::scan::run(root, args, cli.verbose).await,
-        Commands::Map(args) => commands::map::run(root, args).await,
         Commands::Fix(args) => commands::fix::run(root, args).await,
         Commands::Schema => commands::schema::run().await,
     }

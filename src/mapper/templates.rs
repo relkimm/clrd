@@ -1,21 +1,17 @@
 //! Templates for AI context files
 
-/// Template for claude.md - Claude Code context file
-pub const CLAUDE_MD_TEMPLATE: &str = r#"# Project Context for Claude
+/// Template for clrd.md - Main usage instructions for AI agents
+pub const CLRD_MD_TEMPLATE: &str = r#"# clrd - Dead Code Detection
 
-## Dead Code Detection (clrd)
+Usage instructions for AI agents (Claude, Cursor, Copilot, etc.)
 
-This project uses [clrd](https://npmjs.com/package/clrd) for dead code detection.
-
-### Usage
-
-When user asks to "clean up unused code" or "remove dead code":
+## Quick Start
 
 ```bash
 npx clrd scan --format json
 ```
 
-### Decision Rules
+## Decision Rules
 
 ```
 if confidence >= 0.9:
@@ -31,14 +27,25 @@ if public_api == true:
     → Never remove (exposed in package.json exports)
 ```
 
-### Removal Checklist
+## Quick Reference
+
+| confidence | kind | action |
+|------------|------|--------|
+| >= 0.9 | unused_import | Auto-remove |
+| >= 0.9 | unused_export | Auto-remove |
+| >= 0.9 | unreachable_function | Auto-remove |
+| >= 0.9 | zombie_file | Ask user |
+| < 0.9 | * | Ask user |
+| * | public_api: true | Keep |
+
+## Removal Process
 
 1. Remove the dead code itself
 2. Remove imports that become orphaned
 3. Delete files that become empty
 4. Group related removals (function + its imports)
 
-### Common False Positives
+## Common False Positives
 
 Skip these patterns - they may appear unused but aren't:
 - `__tests__/`, `*.test.ts`, `*.spec.ts` - test utilities
@@ -48,7 +55,7 @@ Skip these patterns - they may appear unused but aren't:
 - Dynamic imports: `require(variable)`, `import(expr)`
 - Decorator factories: `@Injectable()`, `@Component()`
 
-### Output Format
+## Output Format
 
 After cleanup, summarize:
 ```
@@ -61,77 +68,30 @@ Skipped Y items (need confirmation):
 - src/legacy.ts (zombie file)
 ```
 
----
+## Links
 
-## Project Structure
-<!-- Describe your project structure -->
-
-## Conventions
-<!-- Document coding conventions -->
+- [npm](https://npmjs.com/package/clrd)
+- [GitHub](https://github.com/nicola-dc/clrd)
 "#;
 
-/// Template for agent.md - Universal AI agent guide
-pub const AGENT_MD_TEMPLATE: &str = r#"# Agent Guide
+/// Reference line to add to claude.md
+pub const CLAUDE_MD_REFERENCE: &str = r#"
+## Dead Code Detection
 
-## Dead Code Detection (clrd)
-
-Scan: `npx clrd scan --format json`
-
-### Quick Reference
-
-| confidence | kind | action |
-|------------|------|--------|
-| >= 0.9 | unused_import | Auto-remove |
-| >= 0.9 | unused_export | Auto-remove |
-| >= 0.9 | unreachable_function | Auto-remove |
-| >= 0.9 | zombie_file | Ask user |
-| < 0.9 | * | Ask user |
-| * | public_api: true | Keep |
-
-### Process
-
-```
-1. Run scan
-2. Filter by confidence >= 0.9
-3. Remove dead code
-4. Clean orphaned imports
-5. Delete empty files
-6. Report summary to user
-```
-
-### Skip These (False Positives)
-
-- Test files (`*.test.ts`, `__tests__/`)
-- Type declarations (`*.d.ts`)
-- Package entry points (check `package.json`)
-- Dynamic imports (`require(var)`)
-- Decorated classes (`@Component`)
-
----
-
-## Project Overview
-<!-- Describe your project -->
+See [clrd.md](./clrd.md) for dead code cleanup instructions.
 "#;
 
-/// Template for .cursorrules - Cursor editor rules
-pub const CURSORRULES_TEMPLATE: &str = r#"# Cursor Rules
+/// Reference line to add to agent.md
+pub const AGENT_MD_REFERENCE: &str = r#"
+## Dead Code Detection
 
-## Dead Code (clrd)
+See [clrd.md](./clrd.md) for dead code cleanup instructions.
+"#;
 
-Scan: npx clrd scan --format json
-
-Auto-remove if confidence >= 0.9:
-  unused_import, unused_export, unreachable_function
-
-Ask user first:
-  zombie_file, confidence < 0.9
-
-Never remove:
-  public_api: true
-
-After removal: clean orphaned imports, delete empty files.
-
-Skip: test files, *.d.ts, package.json entries, dynamic imports.
+/// Reference line to add to .cursorrules
+pub const CURSORRULES_REFERENCE: &str = r#"
+# Dead Code Detection
+# See clrd.md for dead code cleanup instructions.
 "#;
 
 /// JSON Schema for LLM communication

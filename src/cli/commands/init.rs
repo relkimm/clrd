@@ -6,36 +6,33 @@ use anyhow::Result;
 use colored::Colorize;
 use std::path::PathBuf;
 
-pub async fn run(root: PathBuf, _args: InitArgs) -> Result<i32> {
-    println!("{}", "🧹 Initializing clrd...".bold());
+pub async fn run(root: PathBuf, args: InitArgs) -> Result<i32> {
+    println!("{}", "Initializing clrd...".bold());
     println!();
 
     let mapper = Mapper::new(&root);
-    let report = mapper.init()?;
+    let report = mapper.init(args.force)?;
 
     if !report.created.is_empty() {
         println!("{}", "Created:".green().bold());
         for file in &report.created {
-            println!("  {} {}", "✓".green(), file);
+            println!("  {} {}", "+".green(), file);
         }
     }
 
-    if !report.skipped.is_empty() {
+    if !report.updated.is_empty() {
         println!();
-        println!("{}", "Skipped:".yellow().bold());
-        for file in &report.skipped {
-            println!("  {} {}", "○".yellow(), file);
+        println!("{}", "Updated:".cyan().bold());
+        for file in &report.updated {
+            println!("  {} {}", "~".cyan(), file);
         }
     }
 
     println!();
-    println!("{}", "Next steps:".bold());
-    println!("  1. Edit the context files to describe your project");
-    println!("  2. Run {} to detect dead code", "clrd scan".cyan());
-    println!(
-        "  3. Run {} to update context files with results",
-        "clrd map".cyan()
-    );
+    println!("{}", "Done!".green().bold());
+    println!();
+    println!("AI agents can now use {} to clean up dead code.", "clrd".cyan());
+    println!("Run {} to detect dead code.", "clrd scan --format json".cyan());
 
     Ok(0)
 }

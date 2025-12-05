@@ -75,18 +75,15 @@ cargo build --release
 
 ## Quick Start
 
-### 1. Initialize (Optional)
+### 1. Initialize
 
-Generate AI context files for Claude, Cursor, or other AI tools:
+Create `clrd.md` with usage instructions for AI agents:
 
 ```bash
 clrd init
 ```
 
-This creates:
-- `claude.md` — Context for Claude Code
-- `agent.md` — Universal AI agent guide
-- `.cursorrules` — Cursor editor context
+This creates `clrd.md` and adds references to existing `claude.md`, `agent.md`, or `.cursorrules`.
 
 ### 2. Scan for Dead Code
 
@@ -104,15 +101,16 @@ clrd scan --format tui
 clrd scan --confidence 0.8
 ```
 
-### 3. Update AI Context
+### 3. Let AI Clean Up
 
-Keep your AI agents informed with the latest dead code report:
+Tell your AI agent: *"Clean up dead code"*
 
-```bash
-clrd map
-```
+The AI will:
+1. Read `clrd.md` for instructions
+2. Run `clrd scan --format json`
+3. Remove dead code based on confidence scores
 
-### 4. Fix Dead Code
+### 4. Manual Fix (Optional)
 
 ```bash
 # Preview changes (dry run)
@@ -180,9 +178,8 @@ USAGE:
     clrd <COMMAND>
 
 COMMANDS:
-    init     Initialize clrd with AI context files
+    init     Create clrd.md with AI agent instructions
     scan     Scan for dead code
-    map      Update AI context files with scan results
     fix      Remove or comment out dead code
     schema   Output JSON schema for LLM integration
 
@@ -204,14 +201,6 @@ OPTIONS:
         --include-tests        Include test files in analysis
         --confidence <FLOAT>   Minimum confidence threshold [default: 0.5]
     -o, --output <FILE>        Output file (for json format)
-```
-
-### `clrd map`
-
-```
-OPTIONS:
-        --scan                 Run a fresh scan before mapping
-        --confidence <FLOAT>   Minimum confidence for reporting [default: 0.5]
 ```
 
 ### `clrd fix`

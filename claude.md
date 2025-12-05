@@ -20,45 +20,42 @@
 
 ---
 
-## Architecture: The Scan-Map-Judge-Act Protocol
+## Architecture
 
 ```
-┌───────────────────────────────────────────────────────────────────┐
-│                        clrd Architecture                          │
-├───────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│   Phase 1: SCAN          Phase 2: MAP          Phase 3: ACT      │
-│   ┌─────────────┐       ┌─────────────┐       ┌─────────────┐    │
-│   │ FileWalker  │       │   Mapper    │       │    Fix      │    │
-│   │ (parallel)  │──────▶│ (context)   │──────▶│  (remove)   │    │
-│   │ AstAnalyzer │       │ claude.md   │       │ --dry-run   │    │
-│   │ RefGraph    │       │ agent.md    │       │ --soft      │    │
-│   └─────────────┘       └─────────────┘       │ --force     │    │
-│         │                      │              └─────────────┘    │
-│         ▼                      ▼                    │            │
-│   ┌─────────────┐       ┌─────────────┐            │            │
-│   │ ScanOutput  │       │ AI Context  │◀───────────┘            │
-│   │ (JSON)      │──────▶│ Files       │    LLM Judgment         │
-│   └─────────────┘       └─────────────┘                         │
-│                                                                   │
-└───────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                      clrd Architecture                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   1. INIT              2. SCAN              3. AI CLEANUP       │
+│   ┌─────────────┐     ┌─────────────┐      ┌─────────────┐     │
+│   │   clrd.md   │     │ FileWalker  │      │  AI Agent   │     │
+│   │  (usage     │     │ (parallel)  │─────▶│  (Claude,   │     │
+│   │  instructions)│   │ AstAnalyzer │      │   Cursor)   │     │
+│   └─────────────┘     │ RefGraph    │      └─────────────┘     │
+│         │             └─────────────┘            │              │
+│         ▼                   │                    ▼              │
+│   AI reads clrd.md    JSON output         Removes dead code    │
+│   to learn how        with confidence     based on rules       │
+│   to use clrd         scores              in clrd.md           │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### Phase 1: Scan (Rust Speed)
+### Phase 1: Init
+- Creates `clrd.md` with usage instructions for AI agents
+- Adds references to existing `claude.md`, `agent.md`, `.cursorrules`
+
+### Phase 2: Scan
 - Parallel file walking with `rayon` and `ignore` crate
 - AST parsing with `oxc_parser` (fastest JS/TS parser)
 - Cross-file reference graph building
 - Confidence-based dead code detection
 
-### Phase 2: Map (Context Injection)
-- Generates AI context files: `claude.md`, `agent.md`, `.cursorrules`
-- Provides "vision" to AI agents before asking them to fix code
-- Smart section replacement preserving user content
-
-### Phase 3: Act (Delicate Execution)
-- `--dry-run`: Preview mode (default)
-- `--soft`: Comment out code instead of deleting
-- `--force`: Hard delete (requires clean git status)
+### Phase 3: AI Cleanup
+- AI agent reads `clrd.md` for decision rules
+- Runs `clrd scan --format json`
+- Removes dead code based on confidence thresholds
 
 ---
 
@@ -71,9 +68,8 @@ src/
 ├── cli/
 │   ├── mod.rs           # CLI argument parsing (clap)
 │   └── commands/
-│       ├── init.rs      # `clrd init` - create context files
+│       ├── init.rs      # `clrd init` - create clrd.md
 │       ├── scan.rs      # `clrd scan` - detect dead code
-│       ├── map.rs       # `clrd map` - update context files
 │       ├── fix.rs       # `clrd fix` - remove dead code
 │       └── schema.rs    # `clrd schema` - output JSON schema
 ├── scanner/
@@ -141,7 +137,7 @@ Core data structures with `schemars` JSON schema support for LLM integration:
 ## CLI Commands
 
 ```bash
-# Initialize project with AI context files
+# Initialize - creates clrd.md, adds references to existing AI context files
 clrd init [--force]
 
 # Scan for dead code
@@ -151,9 +147,6 @@ clrd scan [--format pretty|json|compact|tui]
          [--confidence 0.5]
          [--include-tests]
          [--output report.json]
-
-# Update AI context files with scan results
-clrd map [--confidence 0.5]
 
 # Fix dead code
 clrd fix [--dry-run]      # Preview only (default)
