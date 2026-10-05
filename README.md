@@ -2,9 +2,7 @@
 
 # clrd
 
-**AI-Native Dead Code Detection**
-
-*Transparent, Delicate, and Fast*
+AI-native dead code detection for JavaScript and TypeScript.
 
 [![Crates.io](https://img.shields.io/crates/v/clrd.svg)](https://crates.io/crates/clrd)
 [![npm](https://img.shields.io/npm/v/clrd.svg)](https://www.npmjs.com/package/clrd)
