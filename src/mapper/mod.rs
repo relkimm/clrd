@@ -38,15 +38,21 @@ impl Mapper {
 
         // Add reference to existing files
         if self.add_reference_to_claude_md()? {
-            report.updated.push("claude.md (added clrd.md reference)".to_string());
+            report
+                .updated
+                .push("claude.md (added clrd.md reference)".to_string());
         }
 
         if self.add_reference_to_agent_md()? {
-            report.updated.push("agent.md (added clrd.md reference)".to_string());
+            report
+                .updated
+                .push("agent.md (added clrd.md reference)".to_string());
         }
 
         if self.add_reference_to_cursorrules()? {
-            report.updated.push(".cursorrules (added clrd.md reference)".to_string());
+            report
+                .updated
+                .push(".cursorrules (added clrd.md reference)".to_string());
         }
 
         Ok(report)
@@ -186,7 +192,11 @@ mod tests {
         let dir = tempdir().unwrap();
 
         // Create claude.md with existing reference
-        fs::write(dir.path().join("claude.md"), "# My Project\n\nSee clrd.md for info").unwrap();
+        fs::write(
+            dir.path().join("claude.md"),
+            "# My Project\n\nSee clrd.md for info",
+        )
+        .unwrap();
 
         let mapper = Mapper::new(dir.path());
         let report = mapper.init(false).unwrap();
