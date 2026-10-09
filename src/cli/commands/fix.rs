@@ -151,7 +151,7 @@ fn apply_fixes(file_path: &PathBuf, items: &[&DeadCodeItem], soft: bool) -> Resu
 
     // Sort items by line number in reverse order to avoid offset issues
     let mut sorted_items = items.to_vec();
-    sorted_items.sort_by(|a, b| b.span.start.cmp(&a.span.start));
+    sorted_items.sort_by_key(|a| std::cmp::Reverse(a.span.start));
 
     let mut new_lines: Vec<String> = lines.iter().map(|s| s.to_string()).collect();
 
