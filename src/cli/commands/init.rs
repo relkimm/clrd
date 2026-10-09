@@ -31,8 +31,14 @@ pub async fn run(root: PathBuf, args: InitArgs) -> Result<i32> {
     println!();
     println!("{}", "Done!".green().bold());
     println!();
-    println!("AI agents can now use {} to clean up dead code.", "clrd".cyan());
-    println!("Run {} to detect dead code.", "clrd scan --format json".cyan());
+    println!(
+        "AI agents can now use {} to clean up dead code.",
+        "clrd".cyan()
+    );
+    println!(
+        "Run {} to detect dead code.",
+        "clrd scan --format json".cyan()
+    );
 
     Ok(0)
 }
